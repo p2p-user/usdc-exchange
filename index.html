@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8">
+		<title>p2p_user</title>
+		<link rel="icon" href="img/photo_2023-10-05_18-45-59.jpg" type="image/x-icon">
+    <style>
+/* Стили для общей контейнера обменника */
+#exchange-container {
+  width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+/* Стили для шапки обменника */
+.exchange-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.exchange-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.exchange-info {
+  font-size: 14px;
+}
+
+/* Стили для формы обменника */
+.exchange-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.exchange-form-row {
+  display: flex;
+  gap: 10px;
+}
+
+.exchange-form label {
+  font-weight: bold;
+}
+
+.exchange-form input {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+#exchange-calculate-button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  border: none;
+  background-color: #0099ff;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Стили для результата обменника */
+.exchange-result {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px dashed #ccc;
+}
+
+.exchange-result-amount,
+.exchange-result-commission {
+  font-size: 18px;
+}
+    </style>
+	</head>
+	<body>
+  <div id="exchange-container">
+    <div class="exchange-header">
+      <h1 class="exchange-title">USDC Exchange</h1>
+      <div class="exchange-info">
+        <p>Курс обмена: 1 USDC (ERC20) = 92,12 руб.</p>
+        <p>Минимальная сумма обмена: 350 USDC (ERC20)</p>
+        <p>Комиссия: 1%</p>
+      </div>
+    </div>
+    <div class="exchange-form">
+      <div class="exchange-form-row">
+        <label for="from-amount">Сумма USDC (ERC20):</label>
+        <input type="number" id="from-amount">
+      </div>
+      <div class="exchange-form-row">
+        <label for="to-amount">Сумма в рублях:</label>
+        <input type="number" id="to-amount" disabled>
+      </div>
+      <button id="exchange-calculate-button">Обменять</button>
+    </div>
+  </div>
+
+  <script>
+    // Получаем элементы формы и результата
+const fromAmountInput = document.getElementById('from-amount');
+const toAmountInput = document.getElementById('to-amount');
+const exchangeCalculateButton = document.getElementById('exchange-calculate-button');
+
+// Добавляем обработчик события "click" для кнопки расчета
+exchangeCalculateButton.addEventListener('click', () => {
+  // Получаем сумму в USDC (ERC20)
+  const fromAmount = Number(fromAmountInput.value);
+
+  // Проверяем, что сумма не меньше минимальной
+  if (fromAmount < 350) {
+    alert('Минимальная сумма обмена: 350 USDС (ERC20)');
+    return;
+  }
+
+  // Рассчитываем сумму в рублях
+  const exchangeRate = 58.50;
+  const commissionRate = 0.02;
+  const toAmount = fromAmount * exchangeRate * (1 - commissionRate);
+
+  // Выводим результат
+  toAmountInput.value = toAmount.toFixed(2);
+});
+  </script>
+	</body>
+</html>
