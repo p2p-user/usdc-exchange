@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>p2p_user about us</title>
+    <title>Telegram Mini App</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background-color: white;
+            transition: background-color 0.3s ease, color 0.3s ease; /* Плавный переход для изменения темы */
         }
 
         /* Делаем заголовок и заголовки секций жирными */
@@ -18,15 +18,15 @@
 
         .heading {
             cursor: pointer;
-            color: rgb(0, 0, 0);
+            color: inherit; /* Наследуем цвет текста для корректной работы в темной теме */
             padding: 10px;
             margin: 5px 0;
             border-radius: 5px;
         }
 
-        /* Добавляем анимацию при раскрытии и закрытии */
+        /* Анимация для раскрытия и скрытия */
         .content {
-            max-height: 0; /* Изначально контент скрыт */
+            max-height: 0;
             overflow: hidden;
             padding: 0 10px;
             background-color: #f1f1f1;
@@ -35,9 +35,9 @@
             transition: max-height 0.5s ease, padding 0.5s ease;
         }
 
-        /* Первый заголовок открыт по умолчанию */
-        #content-1 {
-            max-height: 500px; /* Задаем достаточную высоту, чтобы контент был виден */
+        /* Когда контент открыт */
+        .content.open {
+            max-height: 500px; /* Достаточная высота для раскрытия контента */
             padding: 10px;
         }
     </style>
@@ -47,7 +47,7 @@
     <h2>p2p_user</h2>
 
     <div class="heading" data-id="1">Кто мы?</div>
-    <div class="content" id="content-1">Обменник не используйющий для обменов сильно рискованные криптовалюты по типу USDT, BNB, SOL, TRX и т.п., создатели которых короли отмыва, понцы-схем, минипулирования и которых скорее всего за это скоро посадят в тюрьму.</div>
+    <div class="content open" id="content-1">Обменник не используйющий для обменов сильно рискованные криптовалюты по типу USDT, BNB, SOL, TRX и т.п., создатели которых короли отмыва, понцы-схем, минипулирования и которых скорее всего за это скоро посадят в тюрьму, и все кто держат в них свои деньги вероятно потеряют их.</div>
 
     <div class="heading" data-id="2">Heading 2</div>
     <div class="content" id="content-2">This is the content for heading 2.</div>
@@ -56,6 +56,23 @@
     <div class="content" id="content-3">This is the content for heading 3.</div>
 
     <script>
+        // Telegram WebApp API
+        const tg = window.Telegram.WebApp;
+
+        // Функция для применения темы из Telegram
+        function applyTheme() {
+            const themeParams = tg.themeParams;
+            const bgColor = themeParams.bg_color || "#ffffff"; // Цвет фона, белый по умолчанию
+            const textColor = themeParams.text_color || "#000000"; // Цвет текста, черный по умолчанию
+
+            document.body.style.backgroundColor = bgColor;
+            document.body.style.color = textColor;
+        }
+
+        // Применяем тему при готовности Web App
+        tg.ready();
+        applyTheme();
+
         // Получаем все заголовки
         const headings = document.querySelectorAll('.heading');
 
@@ -72,13 +89,11 @@
                 const contentId = this.getAttribute('data-id');
                 const contentElement = document.getElementById(`content-${contentId}`);
 
-                // Переключаем видимость текста с анимацией
+                // Переключаем видимость текста в зависимости от текущего состояния
                 if (states[contentId]) {
-                    contentElement.style.maxHeight = '0';
-                    contentElement.style.padding = '0 10px';
+                    contentElement.classList.remove('open');  // Скрываем контент
                 } else {
-                    contentElement.style.maxHeight = contentElement.scrollHeight + 'px';
-                    contentElement.style.padding = '10px';
+                    contentElement.classList.add('open');  // Открываем контент
                 }
 
                 // Обновляем состояние заголовка
