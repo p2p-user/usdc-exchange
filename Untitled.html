@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p2p_user about us</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        /* Делаем заголовок и заголовки секций жирными */
+        h2, .heading {
+            font-weight: bold;
+        }
+
+        .heading {
+            cursor: pointer;
+            color: rgb(0, 0, 0);
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+
+        /* Добавляем анимацию при раскрытии и закрытии */
+        .content {
+            max-height: 0; /* Изначально контент скрыт */
+            overflow: hidden;
+            padding: 0 10px;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            margin: 5px 0;
+            transition: max-height 0.5s ease, padding 0.5s ease;
+        }
+
+        /* Первый заголовок открыт по умолчанию */
+        #content-1 {
+            max-height: 500px; /* Задаем достаточную высоту, чтобы контент был виден */
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>p2p_user</h2>
+
+    <div class="heading" data-id="1">Кто мы?</div>
+    <div class="content" id="content-1">Обменник не используйющий для обменов сильно рискованные криптовалюты по типу USDT, BNB, SOL, TRX и т.п., создатели которых короли отмыва, понцы-схем, минипулирования и которых скорее всего за это скоро посадят в тюрьму.</div>
+
+    <div class="heading" data-id="2">Heading 2</div>
+    <div class="content" id="content-2">This is the content for heading 2.</div>
+
+    <div class="heading" data-id="3">Heading 3</div>
+    <div class="content" id="content-3">This is the content for heading 3.</div>
+
+    <script>
+        // Получаем все заголовки
+        const headings = document.querySelectorAll('.heading');
+
+        // Инициализируем состояние заголовков (открыт/закрыт)
+        let states = {
+            1: true,  // Первый заголовок открыт по умолчанию
+            2: false,
+            3: false
+        };
+
+        // Вешаем событие клика на каждый заголовок
+        headings.forEach(heading => {
+            heading.addEventListener('click', function() {
+                const contentId = this.getAttribute('data-id');
+                const contentElement = document.getElementById(`content-${contentId}`);
+
+                // Переключаем видимость текста с анимацией
+                if (states[contentId]) {
+                    contentElement.style.maxHeight = '0';
+                    contentElement.style.padding = '0 10px';
+                } else {
+                    contentElement.style.maxHeight = contentElement.scrollHeight + 'px';
+                    contentElement.style.padding = '10px';
+                }
+
+                // Обновляем состояние заголовка
+                states[contentId] = !states[contentId];
+            });
+        });
+    </script>
+
+</body>
+</html>
