@@ -8,7 +8,7 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            transition: background-color 0.3s ease, color 0.3s ease; /* Плавный переход для изменения темы */
+            background-color: white; /* Устанавливаем белый фон для всей страницы */
         }
 
         /* Делаем заголовок и заголовки секций жирными */
@@ -18,7 +18,7 @@
 
         .heading {
             cursor: pointer;
-            color: inherit; /* Наследуем цвет текста для корректной работы в темной теме */
+            color: rgb(0, 0, 0);
             padding: 10px;
             margin: 5px 0;
             border-radius: 5px;
@@ -56,23 +56,6 @@
     <div class="content" id="content-3">This is the content for heading 3.</div>
 
     <script>
-        // Telegram WebApp API
-        const tg = window.Telegram.WebApp;
-
-        // Функция для применения темы из Telegram
-        function applyTheme() {
-            const themeParams = tg.themeParams;
-            const bgColor = themeParams.bg_color || "#ffffff"; // Цвет фона, белый по умолчанию
-            const textColor = themeParams.text_color || "#000000"; // Цвет текста, черный по умолчанию
-
-            document.body.style.backgroundColor = bgColor;
-            document.body.style.color = textColor;
-        }
-
-        // Применяем тему при готовности Web App
-        tg.ready();
-        applyTheme();
-
         // Получаем все заголовки
         const headings = document.querySelectorAll('.heading');
 
