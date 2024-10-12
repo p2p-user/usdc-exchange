@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Mini App</title>
+    <title>p2p_user</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: white; /* Устанавливаем белый фон для всей страницы */
+            margin: 0px 20px 20px 20px;
         }
 
         /* Делаем заголовок и заголовки секций жирными */
@@ -22,11 +21,22 @@
             padding: 10px;
             margin: 5px 0;
             border-radius: 5px;
+            display: flex;
+            align-items: center; /* Выравниваем стрелку и текст по одной линии */
+            padding-left: 0; /* Убираем дополнительный отступ слева */
         }
 
-        /* Анимация для раскрытия и скрытия */
+        .arrow {
+            display: inline-block;
+            vertical-align: middle; /* Гарантируем вертикальное выравнивание */
+            font-size: 16px; /* Делаем размер стрелки таким же, как у текста */
+            margin-right: 10px; /* Отступ между стрелкой и текстом */
+            transition: transform 0.3s ease;
+        }
+
+        /* Добавляем анимацию при раскрытии и закрытии */
         .content {
-            max-height: 0;
+            max-height: 0; /* Изначально контент скрыт */
             overflow: hidden;
             padding: 0 10px;
             background-color: #f1f1f1;
@@ -35,52 +45,91 @@
             transition: max-height 0.5s ease, padding 0.5s ease;
         }
 
-        /* Когда контент открыт */
-        .content.open {
-            max-height: 500px; /* Достаточная высота для раскрытия контента */
-            padding: 10px;
+        /* Новый стиль для контейнера с заголовком и изображением */
+        .top-container {
+            display: flex;
+            align-items: center; /* Выравниваем по вертикали */
+            margin-top: -20px;
+            margin-bottom: -20px;
+        }
+
+        img {
+            height: 40px;
+            margin-right: 10px; /* Отступ между картинкой и текстом */
+        }
+
+        .top {
+            white-space: nowrap;
+            font-size: 45px;
+            padding-bottom: 8px;
+        }
+
+        .description {
+            font-size: 12px;
+            line-height: 1.5;
+            text-align: justify;
+            margin: 0px 0px 20px 0px;
+        }
+
+        /* Стрелка вверх */
+        .arrow.up {
+            transform: rotate(180deg);
         }
     </style>
 </head>
 <body>
 
-    <h2>p2p_user</h2>
+    <div class="top-container">
+        <img src="photo.png" alt="">
+        <h2 class="top">p2p_user</h2>
+    </div>
 
-    <div class="heading" data-id="1">Кто мы?</div>
-    <div class="content open" id="content-1">Обменник не используйющий для обменов сильно рискованные криптовалюты по типу USDT, BNB, SOL, TRX и т.п., создатели которых короли отмыва, понцы-схем, минипулирования и которых скорее всего за это скоро посадят в тюрьму, и все кто держат в них свои деньги вероятно потеряют их.</div>
+    <!-- Новый текст -->
+    <div class="description">
+        Данное Mini App дополняет нашего бота, из которого вы сюда попали. Когда мы только создавали бота, у нас была цель собрать всю самую главную и необходимую информацию в одном месте, однако как выяснилось чем больше исходного кода, тем ниже быстродействие. Поэтому мы решили всю главную текстовую информацию расположить тут.
+    </div>
 
-    <div class="heading" data-id="2">Heading 2</div>
-    <div class="content" id="content-2">This is the content for heading 2.</div>
+    <div class="heading" data-id="1"><span class="arrow">▼</span>Кто мы?</div>
+    <div class="content" id="content-1">Обменник не используйющий для обменов сильно рискованные криптовалюты по типу USDT, BNB, SOL, TRX и т.п., создатели которых короли отмыва, понцы-схем, минипулирования и которых скорее всего за это скоро посадят в тюрьму.</div>
 
-    <div class="heading" data-id="3">Heading 3</div>
-    <div class="content" id="content-3">This is the content for heading 3.</div>
+    <div class="heading" data-id="2"><span class="arrow">▼</span>Почему p2p_user?</div>
+    <div class="content" id="content-2">В самом начале, 22 сентября 2023 года мы начали свой путь с p2p на Bybit, обменивая USDC и в планах не было делать полноценный обменник, но как видите, мы всё таки решили его сделать, но название на тот момент уже как то нам прижилось, да и идей для нового не было и нет. Однако мы держим в голове идею ребрендинга.</div>
+
+    <div class="heading" data-id="3"><span class="arrow">▼</span>Где можно найти отзывы на нас?</div>
+    <div class="content" id="content-3">У нас более 400 положительных отзывов на Bybit (для их просмотра надо иметь аккаунт) и не одного отрицательного. Так же есть пару отзывов в нашем открытом чате (в закрепе).</div>
 
     <script>
         // Получаем все заголовки
         const headings = document.querySelectorAll('.heading');
-
-        // Инициализируем состояние заголовков (открыт/закрыт)
-        let states = {
-            1: true,  // Первый заголовок открыт по умолчанию
-            2: false,
-            3: false
-        };
+        const contents = document.querySelectorAll('.content');
+        const arrows = document.querySelectorAll('.arrow');
 
         // Вешаем событие клика на каждый заголовок
         headings.forEach(heading => {
             heading.addEventListener('click', function() {
                 const contentId = this.getAttribute('data-id');
                 const contentElement = document.getElementById(`content-${contentId}`);
+                const arrow = this.querySelector('.arrow');
 
-                // Переключаем видимость текста в зависимости от текущего состояния
-                if (states[contentId]) {
-                    contentElement.classList.remove('open');  // Скрываем контент
+                // Закрываем все контенты и переворачиваем стрелки вниз
+                contents.forEach((content, index) => {
+                    if (content !== contentElement) {
+                        content.style.maxHeight = '0';
+                        content.style.padding = '0 10px';
+                        arrows[index].classList.remove('up');
+                    }
+                });
+
+                // Если контент уже открыт - закрываем его, иначе открываем
+                if (contentElement.style.maxHeight && contentElement.style.maxHeight !== '0px') {
+                    contentElement.style.maxHeight = '0';
+                    contentElement.style.padding = '0 10px';
+                    arrow.classList.remove('up');
                 } else {
-                    contentElement.classList.add('open');  // Открываем контент
+                    contentElement.style.maxHeight = contentElement.scrollHeight + 'px';
+                    contentElement.style.padding = '10px';
+                    arrow.classList.add('up');
                 }
-
-                // Обновляем состояние заголовка
-                states[contentId] = !states[contentId];
             });
         });
     </script>
