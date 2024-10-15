@@ -6,7 +6,7 @@
     <title>p2p_user</title>
     <style>
         html {
-            overflow-y: scroll; /* Всегда резервируем место для полосы прокрутки */
+            overflow-y: scroll;
         }
         
         body {
@@ -15,7 +15,6 @@
             background-color: white;
         }
 
-        /* Делаем заголовок и заголовки секций жирными */
         h2, .heading {
             font-weight: bold;
         }
@@ -27,21 +26,20 @@
             margin: 5px 0;
             border-radius: 5px;
             display: flex;
-            align-items: center; /* Выравниваем стрелку и текст по одной линии */
-            padding-left: 0; /* Убираем дополнительный отступ слева */
+            align-items: center;
+            padding-left: 0;
         }
 
         .arrow {
             display: inline-block;
-            vertical-align: middle; /* Гарантируем вертикальное выравнивание */
-            font-size: 16px; /* Делаем размер стрелки таким же, как у текста */
-            margin-right: 10px; /* Отступ между стрелкой и текстом */
+            vertical-align: middle;
+            font-size: 16px; 
+            margin-right: 10px;
             transition: transform 0.3s ease;
         }
 
-        /* Добавляем анимацию при раскрытии и закрытии */
         .content {
-            max-height: 0; /* Изначально контент скрыт */
+            max-height: 0; 
             overflow: hidden;
             padding: 0 10px;
             background-color: #f1f1f1;
@@ -50,17 +48,16 @@
             transition: max-height 0.5s ease, padding 0.5s ease;
         }
 
-        /* Новый стиль для контейнера с заголовком и изображением */
         .top-container {
             display: flex;
-            align-items: center; /* Выравниваем по вертикали */
+            align-items: center; 
             margin-top: -20px;
             margin-bottom: -20px;
         }
 
         img {
             height: 40px;
-            margin-right: 10px; /* Отступ между картинкой и текстом */
+            margin-right: 10px; 
         }
 
         .top {
@@ -76,7 +73,6 @@
             margin: 0px 0px 20px 0px;
         }
 
-        /* Стрелка вверх */
         .arrow.up {
             transform: rotate(180deg);
         }
@@ -104,19 +100,16 @@
     <div class="content" id="content-3">У нас более 400 положительных отзывов на Bybit (для их просмотра надо иметь аккаунт) и не одного отрицательного. Так же есть пару отзывов в нашем открытом чате (в закрепе).</div>
 
     <script>
-        // Получаем все заголовки
         const headings = document.querySelectorAll('.heading');
         const contents = document.querySelectorAll('.content');
         const arrows = document.querySelectorAll('.arrow');
 
-        // Вешаем событие клика на каждый заголовок
         headings.forEach(heading => {
             heading.addEventListener('click', function() {
                 const contentId = this.getAttribute('data-id');
                 const contentElement = document.getElementById(`content-${contentId}`);
                 const arrow = this.querySelector('.arrow');
 
-                // Закрываем все контенты и переворачиваем стрелки вниз
                 contents.forEach((content, index) => {
                     if (content !== contentElement) {
                         content.style.maxHeight = '0';
@@ -125,7 +118,6 @@
                     }
                 });
 
-                // Если контент уже открыт - закрываем его, иначе открываем
                 if (contentElement.style.maxHeight && contentElement.style.maxHeight !== '0px') {
                     contentElement.style.maxHeight = '0';
                     contentElement.style.padding = '0 10px';
