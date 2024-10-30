@@ -57,6 +57,11 @@
             transition: max-height 0.5s ease, padding 0.5s ease;
         }
 
+        .content.open {
+            max-height: 1000px; /* Large enough to fit the content */
+            padding: 10px; /* Add padding when open */
+        }
+
         .top-container {
             display: flex;
             align-items: center; 
@@ -134,6 +139,7 @@
                 const contentElement = document.getElementById(`content-${contentId}`);
                 const arrow = this.querySelector('.arrow');
 
+                // Close all other content boxes
                 contents.forEach((content, index) => {
                     if (content !== contentElement) {
                         content.style.maxHeight = '0';
@@ -142,18 +148,27 @@
                     }
                 });
 
+                // Toggle the current content box
                 if (contentElement.style.maxHeight && contentElement.style.maxHeight !== '0px') {
+                    // Close the content
                     contentElement.style.maxHeight = '0';
                     contentElement.style.padding = '0 10px';
                     arrow.classList.remove('up');
                 } else {
+                    // Open the content and set max-height based on the current scroll height
                     contentElement.style.maxHeight = contentElement.scrollHeight + 'px';
                     contentElement.style.padding = '10px';
                     arrow.classList.add('up');
+
+                    // Listen for window resize events to adjust max-height dynamically
+                    window.addEventListener('resize', () => {
+                        if (contentElement.style.maxHeight !== '0px') {
+                            contentElement.style.maxHeight = contentElement.scrollHeight + 'px';
+                        }
+                    });
                 }
             });
         });
     </script>
-
 </body>
 </html>
