@@ -4,7 +4,7 @@ html {
 
 body {
     font-family: Arial, sans-serif;
-    margin: 0px 15px;
+    margin: 5px 15px 0 15px;
     background-color: white;
 }
 
@@ -79,3 +79,7 @@ img {
     text-align: justify;
     margin: -15px 0px 25px 0px;
 }
+
+a {
+    color: blue;
+  }
