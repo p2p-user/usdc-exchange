@@ -1,0 +1,81 @@
+html {
+    overflow-y: scroll;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0px 15px;
+    background-color: white;
+}
+
+h2, .heading {
+    font-weight: bold;
+}
+
+.heading {
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+    margin: 5px 0 15px 0;
+    display: flex;
+    align-items: center;
+    padding-left: 0;
+}
+
+.arrow {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    background-image: url('img/down-arrow.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: transform 0.3s ease;
+}
+
+.heading span {
+    flex: none;
+}
+
+.arrow.up {
+    transform: rotate(180deg);
+}
+
+.content {
+    max-height: 0; 
+    overflow: hidden;
+    padding: 0px 10px 0 10px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    margin: 5px 0 15px 0;
+    transition: max-height 0.5s ease, padding 0.5s ease;
+}
+
+.content.open {
+    max-height: 1000px; 
+    padding: 10px; 
+}
+
+.top-container {
+    display: flex;
+    align-items: center; 
+    margin-top: -20px;
+    margin-bottom: -20px;
+}
+
+img {
+    height: 40px;
+    margin-right: 10px; 
+}
+
+.top {
+    white-space: nowrap;
+    font-size: 45px;
+    padding-bottom: 0px;
+}
+
+.description {
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: justify;
+    margin: -15px 0px 20px 0px;
+}
